@@ -32,5 +32,9 @@ public class ComplaintLoader {
         ObjectMapper mapper = new ObjectMapper();
         complaints = mapper.readValue(is, new TypeReference<List<Complaint>>() {});
         return List.of(); // placeholder
+
+        for (Complaint s : complaints){
+            System.out.println(s);
+        }
     }
 }

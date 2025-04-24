@@ -1,7 +1,6 @@
 package edu.canisius.csc213.complaints.storage;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
 
 //import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -23,20 +22,23 @@ public class EmbeddingLoader {
      * @throws IOException if the file cannot be read or parsed
      */
     public static Map<Long, double[]> loadEmbeddings(InputStream jsonlStream) throws IOException {
-        // TODO: Implement parsing of JSONL to extract complaintId and embedding
         Map<Long, double[]> embeddingsByID = new HashMap<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        
+        BufferedReader reader = new BufferedReader(new InputStreamReader(jsonlStream));
 
-        Scanner scnr = new Scanner(jsonlStream);
-        ArrayList<String> keys = new ArrayList<>();
-        while(scnr.hasNextLine()){
-            key.add(scnr.nextLine());
-        }
-
-        for(String s : lines){
-            System.out.println(s);
+        String line;
+        while ((line = reader.readLine()) != null){
+            ParsedEntry entry = objectMapper.readValue(line, ParsedEntry.class);
+            embeddingsByID.put(entry.id, entry.embedding);
         }
 
         return embeddingsByID;
+    }
+    
+    static class ParsedEntry{
+        public Long id;
+        public double[] embedding;
     }
 
     public static void main(String[] args) {
