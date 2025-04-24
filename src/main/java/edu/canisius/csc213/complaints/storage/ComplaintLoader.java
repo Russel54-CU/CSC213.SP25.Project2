@@ -28,13 +28,16 @@ public class ComplaintLoader {
      */
     public static List<Complaint> loadComplaintsWithEmbeddings(String csvPath, String jsonlPath) throws Exception {
         // TODO: Load CSV and JSONL resources, parse, and return hydrated Complaint list
-        InputStream is = getClass().getResourceAsStream(csvPath);
+        InputStream is = ComplaintLoader.class.getResourceAsStream(csvPath);
         ObjectMapper mapper = new ObjectMapper();
         complaints = mapper.readValue(is, new TypeReference<List<Complaint>>() {});
-        return List.of(); // placeholder
 
         for (Complaint s : complaints){
             System.out.println(s);
         }
+
+        return List.of(); // placeholder
+
+
     }
 }
