@@ -36,4 +36,9 @@ public class ComplaintController {
 
         return "complaint"; // ← This maps to complaint.html
     }
+
+    @GetMapping("/search")
+    public String searchComplaint(@RequestParam(defaultValue = "0") int index, Model model){
+        
+    }
 }
